@@ -1,3 +1,4 @@
+'use client'
 import { Plus } from "lucide-react"
 import {
     Tooltip,
@@ -6,14 +7,35 @@ import {
     TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { Button } from "../ui/button"
+import { useDispatch } from 'react-redux'
+import { addCartItem } from "@/redux/cartSlice"
+import { useToast } from "@/components/ui/use-toast"
+
 interface ProductCardType {
+    id: number
     title: string,
     price: number,
     category: string,
     imageURL: string
 }
-export default function ProductCard({ title, price, category, imageURL }: ProductCardType) {
+export default function ProductCard({ id, title, price, category, imageURL }: ProductCardType) {
 
+    const dispatch = useDispatch()
+    const { toast } = useToast()
+
+    const handleAddCart = () => {
+        dispatch(addCartItem({
+            id: id,
+            title: title,
+            category: category,
+            price: price,
+            imageURL: imageURL
+        }))
+        toast({
+            variant: 'success',
+            title: "The item has been added to your cart",
+        })
+    }
     return (
         <div className="p-2 border rounded-md">
             <img
@@ -28,7 +50,7 @@ export default function ProductCard({ title, price, category, imageURL }: Produc
                 <TooltipProvider>
                     <Tooltip delayDuration={100}>
                         <TooltipTrigger asChild>
-                            <Button size='icon' className="h-8 w-8">
+                            <Button size='icon' className="h-8 w-8" onClick={handleAddCart}>
                                 <Plus className="w-5 h-5 text-white" />
                             </Button>
                         </TooltipTrigger>
