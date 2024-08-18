@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is an e-commerce frontend application using Next.js that includes a product listing page and a cart page. The cart's state is stored in cookies, ensuring that even when the page is refreshed, the cart details remain intact and do not reset.
 
 ## Getting Started
 
